@@ -56,6 +56,6 @@ class FileStorage:
         if (obj is None):
             return
         search_key = obj.__class__.__name__ + '.' + obj.id  # <classname>.<id>
-        if search_key in self.__objects:
+        if search_key in FileStorage.__objects:
             del obj
-            del self.__objects[search_key]
+            del FileStorage.__objects[search_key]
