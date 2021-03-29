@@ -122,12 +122,14 @@ class HBNBCommand(cmd.Cmd):
         if inpt[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        else:
+            clsarg = inpt[0]
+        new_instance = HBNBCommand.classes[clsarg]()
         for i in inpt[1:]:  # (starting with the argument after the classname)
             input_split_eq = i.split('=', 1)  # split param by equals sign
             key = input_split_eq[0]  # set key to left of equal sign
             value = input_split_eq[1]  # set value to left of equal sign
-            for index in range(len(value)):  # loop through value
+            for i in range(len(value)):  # loop through value
                 if value[i] == '_':  # if there is an underscore...
                     value = value[:i] + " " + value[i+1:]
                     # ^ remove "_" and replace with " "
@@ -140,6 +142,11 @@ class HBNBCommand(cmd.Cmd):
             setattr(new_instance, key, value)
         print(new_instance.id)
         storage.save()
+
+    # need to check type of value - float int or string and store accordingly
+    # need to remove check for escaped quotes at end or beginning of key, value
+    # need to loop through only if val is string and search for " character
+    # if found, escape that quote character
 
     def help_create(self):
         """ Help information for the create method """
