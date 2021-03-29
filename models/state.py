@@ -1,19 +1,20 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, ForeignKey
 
 
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
     name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state")
+#    cities = relationship("City", backref="state")
 
     @property
     def cities(self):
-        """ getter for cities (for FileStorage)
+        """getter for cities (for FileStorage)
         Returns:
-            list of City instances with state_id equal to the current State.id
+        list of City instances with state_id equal to the current State.id
         """
         cities = []
         allcities = models.storageg.all(City)

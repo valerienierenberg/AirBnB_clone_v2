@@ -2,7 +2,7 @@
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 from datetime import datetime
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -10,15 +10,16 @@ Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+
     def __init__(self, *args, **kwargs):
-        """Instatntiates a new model"""
+        """Instantiates a new model"""
         if not kwargs:
             from models import storage
-            id = Column(String(60), primary_key=True, nullable=False)
-            created_at = Column(DateTime, default=datetime.utcnow(),
-                                nullable=False)
-            updated_at = Column(DateTime, defulat=datetime.utcnow(),
-                                nullable=False)
+            self.id = str(uuid.uuid4())
+            self.created_at = self.updated_at = datetime.now()
 #            storage.new(self) task 6 asks us to move this to the save() method
         else:
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
