@@ -118,11 +118,26 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        inpt = args.split()
+        if inpt[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        for i in inpt[1:]:  # (starting with the argument after the classname)
+            input_split_eq = i.split('=', 1)  # split param by equals sign
+            key = input_split_eq[0]  # set key to left of equal sign
+            value = input_split_eq[1]  # set value to left of equal sign
+            for index in range(len(value)):  # loop through value
+                if value[i] == '_':  # if there is an underscore...
+                    value = value[:i] + " " + value[i+1:]
+                    # ^ remove "_" and replace with " "
+            if (key[0] == "'" and key[-1] == "'") or (
+                     key[0] == "\"" and key[-1] == "\""):
+                key = key[1:-1]  # remove the quotes before and after key
+            if (value[0] == "'" and value[-1] == "'") or (
+                     value[0] == "\"" and value[-1] == "\""):
+                value = value[1:-1]  # remove the quotes before and after value
+            setattr(new_instance, key, value)
         print(new_instance.id)
         storage.save()
 
