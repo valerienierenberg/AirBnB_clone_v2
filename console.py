@@ -140,6 +140,7 @@ class HBNBCommand(cmd.Cmd):
                      value[0] == "\"" and value[-1] == "\""):
                 value = value[1:-1]  # remove the quotes before and after value
             setattr(new_instance, key, value)
+        new_instance.save()
         print(new_instance.id)
         storage.save()
 
