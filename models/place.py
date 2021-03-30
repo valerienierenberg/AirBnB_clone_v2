@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
+from sqlalchemy import Table, Column, String, Integer, ForeignKey, Float
+from sqlalchemy.orm import relationship
+
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60),
@@ -10,8 +13,10 @@ place_amenity = Table('place_amenity', Base.metadata,
                              ForeignKey('amenities.id'), nullable=False,
                              primary_key=True))
 
+
 class Place(BaseModel, Base):
     """ A place to stay """
+    __tablename__ = 'places'
     city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)

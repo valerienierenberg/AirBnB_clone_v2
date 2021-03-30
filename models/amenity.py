@@ -1,29 +1,14 @@
-""" This module contains a class Amenity that inherits from BaseModel """
+#!/usr/bin/python3
+""" Amenity Module for HBNB project """
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from models.place import place_amenity
 
-from datetime import datetime
-import json
-from models.engine import file_storage
-from models.base_model import BaseModel
-import uuid
 
-
-class Amenity(BaseModel):
-    """ Amenity class
-    """
-
-    name = ""
-
-# below is the updated amenity class that ashley started for task 10
-# #!/usr/bin/python3
-# """ State Module for HBNB project """
-# from models.base_model import BaseModel
-#
-#
-# class Amenity(BaseModel, Base):
-#    __tablename__= 'amenities'
-#    name = Column(String(128), nullable=False)
-# """ class attribute place_amenities must represent relationship Many-To-Many
-# between the class Place and Amenity."""
-#
-#    place_amenities =
-#
+class Amenity(BaseModel, Base):
+    __tablename__ = 'amenities'
+    name = Column(String(128), nullable=False)
+# class attribute place_amenities must represent relationship Many-To-Many
+# between the class Place and Amenity.
+    place_amenities = relationship("Place", secondary=place_amenity)
