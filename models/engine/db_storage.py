@@ -12,7 +12,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-classes = {"BaseModel": BaseModel, "Amenity": Amenity, "City": City,
+classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
 
@@ -47,7 +47,7 @@ class DBStorage:
                 for obj in objects:  # we now return a dict.. <classname>.<id>
                     key = obj.__class__.__name__ + "." + obj.id
                     all_objs[key] = obj
-        return (all_objs)
+        return(all_objs)
 
     def new(self, obj):
         """add the object to the current database session (self.__session)"""
@@ -78,11 +78,3 @@ class DBStorage:
     def close(self):
         """ close session """
         self.__session.close()
-
-"""
-
-We still need all of the following methods:
-
-reload(self) create all tables in db, create current db session
-
-"""
