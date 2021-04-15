@@ -11,6 +11,7 @@ from os.path import exists
 
 env.hosts = ['34.75.91.40', '34.207.184.116']  # <IP web-01>, <IP web-02>
 
+
 def do_pack():
     """generates a .tgz archive from the contents of the web_static folder
     """
@@ -22,6 +23,7 @@ def do_pack():
         return filename
     else:
         return None
+
 
 def do_deploy(archive_path):
     """ distributes an archive to my web servers
