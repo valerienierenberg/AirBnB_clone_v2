@@ -16,10 +16,10 @@ def deploy():
     """ creates and distributes an archive to your web servers
     """
     new_archive_path = do_pack()
-    if exists(new_archive_path) is False:
+    if new_archive_path is None:
         return False
-    result = do_deploy(new_archive_path)
-    return result
+    return do_deploy(new_archive_path)
+
 
 # The script has the following steps:
 # Call the do_pack() function and store the path of the created archive
