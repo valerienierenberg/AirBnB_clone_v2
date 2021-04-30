@@ -5,6 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from models.city import City
+import os
 
 
 class State(BaseModel, Base):
@@ -13,7 +14,7 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state")
 
-    if models.storage != "db":
+    if os.getenv('HBNB_TYPE_STORAGE') != "db":
         @property
         def cities(self):
             """getter for cities (for FileStorage)
