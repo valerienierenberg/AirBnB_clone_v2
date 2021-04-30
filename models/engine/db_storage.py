@@ -40,15 +40,12 @@ class DBStorage:
         """ query on current db session (self.__session) all obj depending
         on class name (arg cls) """
         all_objs = {}
-        objects = [v for k, v in classes.items()]
-        if cls:
-            if isinstance(cls, str):
-                cls = classses[cls]
-            objects = [cls]
-        for c in objects:
-            for instance in self.__session.query(c):
-                key = str(instance.__class__.__name__) + "." + str(instance.id)
-                all_objs[key] = instance
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    all_objs[key] = obj
         return (all_objs)
 
     def new(self, obj):
