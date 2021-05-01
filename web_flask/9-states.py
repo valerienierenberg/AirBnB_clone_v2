@@ -18,13 +18,16 @@ classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
 
-@app.route('/cities_by_states', strict_slashes=False)
-def cities_by_states():
-    """ display HTML page with list of cities """
+@app.route('/states', strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
+def states(id=None):
+    """ display HTML page with list of states """
     states = storage.all(classes["State"]).values()
-    # ^ fetches states data from storage engine, then in line below,
+    if id is not None:
+        id = 'State.' + id
+    # ^ fetches States data from storage engine, then in line below,
     # those states are passed into the template
-    return render_template('8-cities_by_states.html', states=states)
+    return render_template('9-states.html', states=states, id=id)
 
 
 @app.teardown_appcontext
