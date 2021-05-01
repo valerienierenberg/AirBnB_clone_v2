@@ -19,7 +19,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<id>', strict_slashes=False)
+@app.route('/states/<states_id>', strict_slashes=False)
 def states(states_id=None):
     """ display HTML page with list of states """
     states = storage.all(classes["State"]).values()
