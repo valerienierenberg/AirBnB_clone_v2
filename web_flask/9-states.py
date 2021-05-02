@@ -20,7 +20,7 @@ classes = {"Amenity": Amenity, "City": City,
 
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
-def id_states(id):
+def id_states(id=None):
     """display HTML page with city and state data from storage engine"""
     all_states = storage.all(State)
     if id:
