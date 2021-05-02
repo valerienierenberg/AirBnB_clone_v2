@@ -19,21 +19,20 @@ classes = {"Amenity": Amenity, "City": City,
 
 
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<states_id>', strict_slashes=False)
-def states(states_id=None):
-    """ display HTML page with list of states """
-    states = storage.all(classes["State"]).values()
-    if states_id is not None:
-        states_id = 'State.' + states_id
-    # ^ fetches States data from storage engine, then in line below,
-    # those states are passed into the template
-    return render_template('9-states.html', states=states, states_id=states_id)
+@app.route('/states/<id>', strict_slashes=False)
+def id_states(id):
+    """display HTML page with city and state data from storage engine"""
+    all_states = storage.all(State)
+    if id:
+        states = all_states.get('State.{}'.format(id))
+    else:
+        states = all_states.values()
+    return render_template('9-states.html', states=states)
 
 
 @app.teardown_appcontext
 def remove_SQLalc_session(exception):
     """ close storage when tear down occurs """
     storage.close()
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
