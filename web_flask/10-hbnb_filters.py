@@ -22,7 +22,7 @@ classes = {"Amenity": Amenity, "City": City,
 def hbnb_filters():
     """display HTML page with city and state data from storage engine"""
     all_states = storage.all(State).values()
-    amenities = storage.all(Amenities).values()
+    amenities = storage.all(Amenity).values()
     return render_template('10-hbnb_filters.html', states=states,
                            amenities=amenities)
 
